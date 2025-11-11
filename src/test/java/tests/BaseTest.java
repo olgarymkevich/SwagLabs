@@ -13,7 +13,6 @@ public class BaseTest {
     WebDriver browser;
     LoginPage loginPage;
 
-
     @BeforeMethod
     public void setUp(){
         ChromeOptions options = new ChromeOptions();

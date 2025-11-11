@@ -19,6 +19,7 @@ public class LoginPage {
     public void open(){
         browser.get("https://www.saucedemo.com/");
     }
+
     public void login(String log) {
         browser.findElement(USER_NAME).sendKeys(log);
     }
@@ -28,7 +29,7 @@ public class LoginPage {
         browser.findElement(LOGIN).click();
     }
 
-    public String chekMsg() {
+    public String pageTitle() {
         return browser.findElement(PRODUCTS).getText();
     }
 

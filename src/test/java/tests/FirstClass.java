@@ -10,7 +10,7 @@ public class FirstClass extends BaseTest{
         loginPage.open();
         loginPage.login("standard_user");
         loginPage.password("secret_sauce");
-        assertEquals(loginPage.chekMsg(), "Products");
+        assertEquals(loginPage.pageTitle(), "Products");
     }
 
     @Test
