@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 
 public class ProductsPage extends BasePage {
 
-    private By products = By.xpath("//span[@class='title']");
     private static final String ADD_TO_CART = "//*[text()='%s']//ancestor::div[@class='inventory_item']//child::button[text()='Add to cart']";
-    private static final By CART = By.xpath("//span[@class='shopping_cart_badge']");
+    private By products = By.xpath("//span[@class='title']");
+    private By cart = By.xpath("//span[@class='shopping_cart_badge']");
 
     public ProductsPage(WebDriver driver) {
         super(driver);
@@ -27,6 +27,6 @@ public class ProductsPage extends BasePage {
     }
 
     public String cart(){
-        return driver.findElement(CART).getText();
+        return driver.findElement(cart).getText();
     }
 }

@@ -19,14 +19,14 @@ public class LoginPage extends BasePage {
         driver.get(BASE_URL);
     }
 
-    public void login(String log, String pas) {
-        fillInLogin(log);
+    public void login(String login, String pas) {
+        fillInLogin(login);
         fillPassword(pas);
         pressLoginBtn();
     }
 
-    public void fillInLogin(String log) {
-        driver.findElement(user_name).sendKeys(log);
+    public void fillInLogin(String login) {
+        driver.findElement(user_name).sendKeys(login);
     }
 
     public void fillPassword(String pas) {
