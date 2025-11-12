@@ -2,38 +2,43 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class LoginPage {
-    WebDriver browser;
+public class LoginPage extends BasePage {
 
-    private static final By USER_NAME = By.xpath("//input[@name='user-name']");
-    private static final By PASSWORD = By.xpath("//input[@name='password']");
-    private static final By LOGIN = By.xpath("//input[@id='login-button']");
-    private static final By PRODUCTS = By.xpath("//span[@class='title']");
-    private static final By ERROR = By.cssSelector(".error-message-container");
+    private By user_name = By.xpath("//input[@name='user-name']");
+    private By password = By.xpath("//input[@name='password']");
+    private By login = By.xpath("//input[@id='login-button']");
+    private By error = By.cssSelector(".error-message-container");
 
-    public LoginPage(WebDriver browser) {
-        this.browser = browser;
+    public LoginPage(WebDriver driver) {
+        super(driver);
     }
 
     public void open(){
-        browser.get("https://www.saucedemo.com/");
+        driver.get(BASE_URL);
     }
 
-    public void login(String log) {
-        browser.findElement(USER_NAME).sendKeys(log);
+    public void login(String login, String pas) {
+        fillInLogin(login);
+        fillPassword(pas);
+        pressLoginBtn();
     }
 
-    public void password(String pas){
-        browser.findElement(PASSWORD).sendKeys(pas);
-        browser.findElement(LOGIN).click();
+    public void fillInLogin(String login) {
+        driver.findElement(user_name).sendKeys(login);
     }
 
-    public String pageTitle() {
-        return browser.findElement(PRODUCTS).getText();
+    public void fillPassword(String pas) {
+        driver.findElement(password).sendKeys(pas);
+    }
+
+    public void pressLoginBtn() {
+        driver.findElement(login).click();
     }
 
     public String chekErrorMsg() {
-        return browser.findElement(ERROR).getText();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(error));
+        return driver.findElement(error).getText();
     }
 }
