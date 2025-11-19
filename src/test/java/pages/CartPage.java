@@ -10,23 +10,26 @@ import java.util.List;
 
 public class CartPage extends BasePage {
 
-    private By description = By.xpath("//div[@class='cart_desc_label']");
+    private final By description = By.xpath("//div[@class='cart_desc_label']");
+    private final By items = By.cssSelector(".inventory_item_name");
 
     public CartPage(WebDriver driver) {
         super(driver);
+    }
+
+    public ArrayList<String> getProductNames() {
+        List<WebElement> allProducts = driver.findElements(items);
+        ArrayList<String> names = new ArrayList<>();
+        for (WebElement product : allProducts) {
+           names.add(product.getText());
+        }
+
+        return names;
     }
 
     public String pageCartOpen(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(description));
         return driver.findElement(description).getText();
     }
-
-    public ArrayList<String> getProductNames() {
-        List<WebElement> allProducts = driver.findElements(By.cssSelector(".inventory_item_name"));
-        ArrayList<String> names = new ArrayList<>();
-        for (WebElement product : allProducts) {
-           names.add(product.getText());
-        }
-        return names;
-    }
 }
+
