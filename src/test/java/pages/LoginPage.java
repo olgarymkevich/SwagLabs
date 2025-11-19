@@ -3,13 +3,14 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import user.User;
 
 public class LoginPage extends BasePage {
 
-    private By user_name = By.xpath("//input[@name='user-name']");
-    private By password = By.xpath("//input[@name='password']");
-    private By login = By.xpath("//input[@id='login-button']");
-    private By error = By.cssSelector(".error-message-container");
+    private final By user_name = By.xpath("//input[@name='user-name']");
+    private final By password = By.xpath("//input[@name='password']");
+    private final By login = By.xpath("//input[@id='login-button']");
+    private final By error = By.cssSelector(".error-message-container");
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -19,9 +20,9 @@ public class LoginPage extends BasePage {
         driver.get(BASE_URL);
     }
 
-    public void login(String login, String pas) {
-        fillInLogin(login);
-        fillPassword(pas);
+    public void login(User user) {
+        fillInLogin(user.getEmail());
+        fillPassword(user.getPassword());
         pressLoginBtn();
     }
 
@@ -42,3 +43,4 @@ public class LoginPage extends BasePage {
         return driver.findElement(error).getText();
     }
 }
+

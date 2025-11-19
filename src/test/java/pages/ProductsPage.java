@@ -3,14 +3,13 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProductsPage extends BasePage {
 
     private static final String ADD_TO_CART = "//*[text()='%s']//ancestor::div[@class='inventory_item']//child::button[text()='Add to cart']";
-    private By products = By.xpath("//span[@class='title']");
-    private By counter_cart = By.xpath("//span[@class='shopping_cart_badge']");
-    private By cart_link = By.cssSelector("[data-test='shopping-cart-link']");
+    private final By products = By.xpath("//span[@class='title']");
+    private final By counter_cart = By.xpath("//span[@class='shopping_cart_badge']");
+    private final By cart_link = By.cssSelector("[data-test='shopping-cart-link']");
 
     public ProductsPage(WebDriver driver) {
         super(driver);
@@ -40,6 +39,7 @@ public class ProductsPage extends BasePage {
         driver.findElement(cart_link).click();
     }
 }
+
 
 //public void addToCart(final int index){
     //By addToCart = By.xpath("//*[text()='Add to cart']");

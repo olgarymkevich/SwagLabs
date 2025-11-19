@@ -1,16 +1,20 @@
 package tests;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import user.User;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
+import static user.UserFactory.*;
 
 public class LoginTest extends BaseTest {
 
     @Test
     public void successAuthorization() {
+        System.out.println("CorrectLogin tests are running in thread: " + Thread.currentThread().getId());
+
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(withAdminPermission());
         assertTrue(productsPage.pageTitle());
         assertEquals(productsPage.pageTitleText(), "Products");
     }
@@ -18,19 +22,22 @@ public class LoginTest extends BaseTest {
     @DataProvider()
     public Object[][] loginData() {
         return new Object[][]{
-                {"standard_user", "secret", "Epic sadface: Username and password do not match any user in this service"},
-                {"standard_user", "", "Epic sadface: Password is required"},
-                {"", "secret_sauce", "Epic sadface: Username is required"},
-                {"locked_out_user", "secret_sauce", "Epic sadface: Sorry, this user has been locked out."},
-                {"", "", "Epic sadface: Username is required"},
-                {"locked_out_user", "secret", "Epic sadface: Username and password do not match any user in this service"}
+                {withInvalidPasswordUser(), "Epic sadface: Username and password do not match any user in this service"},
+                {withEmptyPasswordUser(), "Epic sadface: Password is required"},
+                {withEmptyEmailUser(), "Epic sadface: Username is required"},
+                {withLockedUserPermission(), "Epic sadface: Sorry, this user has been locked out."},
+                {withEmptyFieldsUser(), "Epic sadface: Username is required"},
+                {withInvalidFieldsUser(), "Epic sadface: Username and password do not match any user in this service"}
         };
     }
 
     @Test(dataProvider = "loginData")
-    public void unsuccessAuthorization(String login, String password, String error) {
+    public void unsuccessAuthorization(User user, String error) {
+        System.out.println("IncorrectLogin tests are running in thread: " + Thread.currentThread().getId());
+
         loginPage.open();
-        loginPage.login(login, password);
+        loginPage.login(user);
         assertEquals(loginPage.chekErrorMsg(), error);
     }
 }
+
