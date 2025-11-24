@@ -38,6 +38,3 @@ public class UserFactory {
                 PropertyReader.getProperty("swaglabs.invalid.password"));
     }
 }
-
-
-
