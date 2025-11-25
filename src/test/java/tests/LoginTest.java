@@ -1,5 +1,7 @@
 package tests;
 
+import enums.DepartmentNaming;
+import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import user.User;
@@ -9,14 +11,21 @@ import static user.UserFactory.*;
 
 public class LoginTest extends BaseTest {
 
-    @Test
+    @Epic("Главная страница интернет-магазина")
+    @Feature("Модуль логина")
+    @Story("Авторизация")
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Рымкевич Ольга, ...@mail.ru")
+    @TmsLink("SwagLabs")
+    @Issue("Rostelecom")
+    @Test(description = "Авторизация с валидными данными")
     public void successAuthorization() {
         System.out.println("CorrectLogin tests are running in thread: " + Thread.currentThread().getId());
 
         loginPage.open();
         loginPage.login(withAdminPermission());
         assertTrue(productsPage.pageTitle());
-        assertEquals(productsPage.pageTitleText(), "Products");
+        assertEquals(productsPage.pageTitleText(), DepartmentNaming.PRODUCTS.getDisplayName());
     }
 
     @DataProvider()
@@ -31,7 +40,7 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "loginData")
+    @Test(dataProvider = "loginData", description = "Авторизация с невалидными данными")
     public void unsuccessAuthorization(User user, String error) {
         System.out.println("IncorrectLogin tests are running in thread: " + Thread.currentThread().getId());
 
@@ -40,4 +49,3 @@ public class LoginTest extends BaseTest {
         assertEquals(loginPage.chekErrorMsg(), error);
     }
 }
-
