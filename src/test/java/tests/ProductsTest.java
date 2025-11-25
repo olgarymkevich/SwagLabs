@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -9,7 +10,12 @@ public class ProductsTest extends BaseTest {
 
     final String goodsName = "Sauce Labs Backpack";
 
-    @Test
+    @Epic("Страница 'Products'")
+    @Feature("Каталог товаров")
+    @Story("Карточки товаров")
+    @Severity(SeverityLevel.CRITICAL)
+    @Owner("Рымкевич Ольга, ...@mail.ru")
+    @Test(description = "Добавляем товары в корзину")
     public void chekGoodsAdded(){
         System.out.println("Products tests are running in thread: " + Thread.currentThread().getId());
 
@@ -20,7 +26,7 @@ public class ProductsTest extends BaseTest {
         assertEquals(productsPage.cart(), "1");
     }
 
-    @Test
+    @Test(description = "Добавляем товары в корзину")
     public void goodsInCart(){
         System.out.println("Products tests are running in thread: " + Thread.currentThread().getId());
 
@@ -35,4 +41,3 @@ public class ProductsTest extends BaseTest {
         assertFalse(cartPage.getProductNames().isEmpty());
     }
 }
-
